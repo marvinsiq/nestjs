@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Query, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Query, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 
 import { CreateCatDto } from 'src/cats/dto/create-cat.dto';
 import { UpdateCatDto } from 'src/cats/dto/update-cat.dto';
@@ -19,7 +19,6 @@ export class CatsController {
 
   @Get()
   findAll(@Query() query: ListAllEntities) : Promise<Cat[]> {
-    
     console.log(`This action returns all cats (limit: ${query.limit} items)`);
     return this.catsService.findAll();
   }
