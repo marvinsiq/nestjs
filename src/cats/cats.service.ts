@@ -8,6 +8,14 @@ export class CatsService {
   private cont = 1;
   private readonly cats: Cat[] = [];
 
+  constructor() {
+    this.cats.push({
+      "name" : "Bixano",
+      "age": 4,
+      "breed": "breed"
+    } as Cat);
+  }
+
   create(createCatDto: CreateCatDto): Promise<Cat> {
     return new Promise((resolve, reject) => {
 

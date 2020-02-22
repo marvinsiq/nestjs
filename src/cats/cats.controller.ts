@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Query, Put, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Query, Put, Delete, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 
 import { CreateCatDto } from 'src/cats/dto/create-cat.dto';
 import { UpdateCatDto } from 'src/cats/dto/update-cat.dto';
@@ -6,6 +6,7 @@ import { ListAllEntities } from 'src/cats/dto/list-all-entities.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ParseIntPipe } from 'src/pipes/parse-int.pipe';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('cats')
 export class CatsController {
@@ -19,6 +20,7 @@ export class CatsController {
     return this.catsService.create(createCatDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(@Query() query: ListAllEntities) : Promise<Cat[]> {
     console.log(`This action returns all cats (limit: ${query.limit} items)`);
